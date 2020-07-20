@@ -3,6 +3,7 @@ a = open('config.json', 'r')
 b = json.load(a)
 ballinfo = b['ball']
 boxinfo = b['box']
+textinfo = b['text']
 balls = []
 
 
@@ -49,6 +50,41 @@ def make_box(key):
 		ball = play.new_box(color=play.random_color(), y=play.mouse.y, x=play.mouse.x, width=boxinfo['width'], height=boxinfo['height'])
 		print(f"New Box obj spawned at x = {play.mouse.x}, y = {play.mouse.y} with width = {boxinfo['width']},\nheight={boxinfo['height']}, bounce = {boxinfo['bounce']}, mass = {boxinfo['mass']}, friction = {boxinfo['friction']}\n")
 		ball.start_physics(bounciness=boxinfo['bounce'], mass=boxinfo['mass'], friction=boxinfo['friction'])
+		ball.is_being_dragged = False
+
+		@ball.when_clicked
+		def click_ball():
+			print(f'Box obj clicked at x = {play.mouse.x}, y = {play.mouse.y}\n')
+			text3.words = f'Color: {ball.color}'
+			text3.show()
+			text4.words = f"Mass: {boxinfo['mass']}"
+			text4.show()
+			ball.is_being_dragged = True
+
+
+		@play.mouse.when_click_released
+		def release_ball():
+				for ball in balls:
+						ball.is_being_dragged = False
+						text3.hide()
+						text4.hide()
+
+		balls.append(ball)
+
+@play.when_key_pressed('t')
+def make_text(key):
+		for ball in balls:
+			if play.mouse.is_touching(ball):
+				return
+		words = input('Enter text: ')
+		ball = play.new_text(words=words, color=play.color.color_name_to_rgb("black"), y=play.mouse.y, x=play.mouse.x)
+		print(f"New Text obj spawned at x = {play.mouse.x}, y = {play.mouse.y} with text = {words}", end = "")
+		if textinfo['move'] == True:
+			ball.start_physics(bounciness=boxinfo['bounce'], mass=boxinfo['mass'], friction=boxinfo['friction'])
+			print(f" ,physics = {textinfo['move']}, bounce = {textinfo['bounce']}, mass = {textinfo['mass']}, friction = {textinfo['friction']}\n")
+		else:
+			print("\n")
+			pass
 		ball.is_being_dragged = False
 
 		@ball.when_clicked

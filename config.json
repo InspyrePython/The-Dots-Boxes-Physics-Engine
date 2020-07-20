@@ -11,5 +11,12 @@
 		"bounce":0.5,
 		"mass":200,
 		"friction":1
+	},
+	"text":{
+		"move":true,
+		"size":30,
+		"bounce":0.5,
+		"mass":200,
+		"friction":1
 	}
 }
