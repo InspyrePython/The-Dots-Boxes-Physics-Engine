@@ -81,7 +81,7 @@ def make_text(key):
 		print(f"New Text obj spawned at x = {play.mouse.x}, y = {play.mouse.y} with text = {words}", end = "")
 		if textinfo['move'] == True:
 			ball.start_physics(bounciness=boxinfo['bounce'], mass=boxinfo['mass'], friction=boxinfo['friction'])
-			print(f" ,physics = {textinfo['move']}, bounce = {textinfo['bounce']}, mass = {textinfo['mass']}, friction = {textinfo['friction']}\n")
+			print(f", physics = {textinfo['move']}, bounce = {textinfo['bounce']}, mass = {textinfo['mass']}, friction = {textinfo['friction']}\n")
 		else:
 			print("\n")
 			pass
@@ -89,8 +89,9 @@ def make_text(key):
 
 		@ball.when_clicked
 		def click_ball():
-			print(f'Box obj clicked at x = {play.mouse.x}, y = {play.mouse.y}\n')
-			text3.words = f'Color: {ball.color}'
+			print(f'Text obj clicked at x = {play.mouse.x}, y = {play.mouse.y}\n')
+			text3.x = play.screen.left + 80
+			text3.words = f'Text: {words}'
 			text3.show()
 			text4.words = f"Mass: {boxinfo['mass']}"
 			text4.show()
