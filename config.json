@@ -1,0 +1,15 @@
+{
+	"box":{
+		"width":20,
+		"height":20,
+		"bounce":0.25,
+		"mass":100,
+		"friction":1
+	},
+	"ball":{
+		"radius":10,
+		"bounce":0.5,
+		"mass":200,
+		"friction":1
+	}
+}
